@@ -1,11 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] CharacterController controller;
     [SerializeField] float moveSpeed = 4f;
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner) Destroy(this); // remove camera controller in server
+    }
 
     void Update()
     {

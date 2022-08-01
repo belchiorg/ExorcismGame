@@ -392,6 +392,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6686182269593383047, guid: d4c0885ef69092542a7a5c26ecafea80,
+        type: 3}
+      propertyPath: mouseSensitivity
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6686182269821317400, guid: d4c0885ef69092542a7a5c26ecafea80,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6686182269821317402, guid: d4c0885ef69092542a7a5c26ecafea80,
         type: 3}
       propertyPath: m_RootOrder

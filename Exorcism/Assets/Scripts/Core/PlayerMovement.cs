@@ -1,4 +1,4 @@
-using Unity.Netcode;
+using Mirror;
 using UnityEngine;
 
 namespace Game.Core
@@ -7,29 +7,30 @@ namespace Game.Core
     {
         [SerializeField] CharacterController controller;
         [SerializeField] float moveSpeed = 4f;
-
-        public override void OnNetworkSpawn()
-        {
-            if (!IsOwner) Destroy(this); // remove camera controller in server
-        }
-
+        
         void Update()
         {
-            Vector2 keyboardInput = getKeyboardInput();
-
-            Vector3 move = transform.right * keyboardInput.x + transform.forward * keyboardInput.y;
-
-            controller.Move(move * moveSpeed * Time.deltaTime);
+            HandlePlayerMovement();
         }
 
-        private Vector2 getKeyboardInput()
+        private void HandlePlayerMovement()
         {
-            float getKeyboardAxis(string axis)
+            if (isLocalPlayer)
+            {
+                Vector2 keyboardInput = GetKeyboardInput();
+                Vector3 move = transform.right * keyboardInput.x + transform.forward * keyboardInput.y;
+                controller.Move(move * moveSpeed * Time.deltaTime);
+            }
+        }
+        
+        private Vector2 GetKeyboardInput()
+        {
+            float GetKeyboardAxis(string axis)
             {
                 return Input.GetAxisRaw(axis);
             }
 
-            return new Vector2(getKeyboardAxis("Horizontal"), getKeyboardAxis("Vertical"));
+            return new Vector2(GetKeyboardAxis("Horizontal"), GetKeyboardAxis("Vertical"));
         }
     }
 }

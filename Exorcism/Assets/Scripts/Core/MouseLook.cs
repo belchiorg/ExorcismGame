@@ -1,5 +1,7 @@
-using Unity.Netcode;
+using System;
+using Mirror;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Game.Core
 {
@@ -7,6 +9,8 @@ namespace Game.Core
     {
         [SerializeField] private float mouseSensitivity = 250f;
         [SerializeField] private Transform playerBody;
+        [SerializeField] private Camera playerCam;
+        [SerializeField] private AudioListener audioListener;
         private float _xRotation = 0f;
 
         private enum MouseState
@@ -17,40 +21,43 @@ namespace Game.Core
 
         MouseState _currentState = MouseState.Locked;
 
-        public override void OnNetworkSpawn()
-        {
-            if (!IsOwner)
-            {
-                Object.Destroy(this.gameObject); // remove the camera if its not owner
-            };
-        }
-
         private void Start()
         {
-            HideAndLockCursor();
+            if (isLocalPlayer)
+            {
+                HideAndLockCursor();
+            }
+            else
+            {
+                playerCam.enabled = false;
+                audioListener.enabled = false;
+            }
         }
 
         void Update()
         {
-            Vector2 mouseInput = GetMouseInput();
+            if (isLocalPlayer)
+            {
+                Vector2 mouseInput = GetMouseInput();
 
-            _xRotation -= mouseInput.y;
-            _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
+                _xRotation -= mouseInput.y;
+                _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
-            transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-            playerBody.Rotate(Vector3.up * mouseInput.x);
+                playerCam.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+                playerBody.Rotate(Vector3.up * mouseInput.x);
 
-            if (Input.GetKeyDown(KeyCode.J)) ToggleMouseState();
+                if (Input.GetKeyDown(KeyCode.J)) ToggleMouseState();
+            }
         }
 
         private Vector2 GetMouseInput()
         {
-            float getMouseAxis(string axis)
+            float GetMouseAxis(string axis)
             {
                 return Input.GetAxis(axis) * mouseSensitivity * Time.deltaTime;
             }
 
-            return new Vector2(getMouseAxis("Mouse X"), getMouseAxis("Mouse Y"));
+            return new Vector2(GetMouseAxis("Mouse X"), GetMouseAxis("Mouse Y"));
         }
 
         private void ToggleMouseState()

@@ -7,6 +7,9 @@ namespace Game.Steamworks
 
     public class SteamLobby : MonoBehaviour
     {
+
+        public static SteamLobby instance;
+        
         protected Callback<LobbyCreated_t> lobbyCreated;
         protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
         protected Callback<LobbyEnter_t> lobbyEntered;
@@ -26,6 +29,10 @@ namespace Game.Steamworks
                 return;
             }
 
+            if (instance == null)
+            {
+                instance = this; 
+            }
 
             lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
             gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);

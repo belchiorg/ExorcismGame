@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2397594521683732517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 88424003296046088}
+  m_Layer: 0
+  m_Name: Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &88424003296046088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2397594521683732517}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.292, y: 0.156, z: 0.557}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6686182269533128010}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3622921099762104058
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +44,7 @@ GameObject:
   - component: {fileID: 7632912562688929030}
   - component: {fileID: 7460001589987077224}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,6 +160,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2452797388439868886}
+  - {fileID: 88424003296046088}
   m_Father: {fileID: 6686182269821317402}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -324,10 +356,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6686182269821317402}
   - component: {fileID: 6686182269821317401}
-  - component: {fileID: 6686182269821317400}
   - component: {fileID: 8553549750475770939}
   - component: {fileID: 4460917891829131092}
+  - component: {fileID: 6686182269821317400}
   - component: {fileID: 239577051214402381}
+  - component: {fileID: 4490864864000026648}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -370,22 +403,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6686182269821317400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6686182269821317403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 875c7a095c98b2342b4bbe305507d458, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  controller: {fileID: 6686182269821317401}
-  moveSpeed: 4
 --- !u!114 &8553549750475770939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +454,22 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &6686182269821317400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6686182269821317403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875c7a095c98b2342b4bbe305507d458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  controller: {fileID: 6686182269821317401}
+  moveSpeed: 4
 --- !u!114 &239577051214402381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,3 +488,23 @@ MonoBehaviour:
   playerBody: {fileID: 6686182269821317402}
   playerCam: {fileID: 6686182269593383042}
   audioListener: {fileID: 6686182269593383043}
+--- !u!114 &4490864864000026648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6686182269821317403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a2484c57d707342973a8e31aab3372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  sceneObjectPrefab: {fileID: 3208516101697358148, guid: b320a8573f4af8a488959de60c74abd3,
+    type: 3}
+  hand: {fileID: 2397594521683732517}
+  itemPrefab: {fileID: 6304318950988291472, guid: 98922049e746d574ca170dd1e2c591f8,
+    type: 3}
+  equippedItem: 0

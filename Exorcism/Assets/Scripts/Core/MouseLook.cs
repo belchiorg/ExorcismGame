@@ -5,17 +5,17 @@ namespace Game.Core
 {
     public class MouseLook : NetworkBehaviour
     {
-        [SerializeField] float mouseSensitivity = 250f;
-        [SerializeField] Transform playerBody;
-        float xRotation = 0f;
+        [SerializeField] private float mouseSensitivity = 250f;
+        [SerializeField] private Transform playerBody;
+        private float _xRotation = 0f;
 
         private enum MouseState
         {
-            NORMAL,
-            LOCKED
+            Normal,
+            Locked
         }
 
-        MouseState currentState = MouseState.LOCKED;
+        MouseState _currentState = MouseState.Locked;
 
         public override void OnNetworkSpawn()
         {
@@ -27,23 +27,23 @@ namespace Game.Core
 
         private void Start()
         {
-            hideAndLockCursor();
+            HideAndLockCursor();
         }
 
         void Update()
         {
-            Vector2 mouseInput = getMouseInput();
+            Vector2 mouseInput = GetMouseInput();
 
-            xRotation -= mouseInput.y;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            _xRotation -= mouseInput.y;
+            _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
-            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
             playerBody.Rotate(Vector3.up * mouseInput.x);
 
-            if (Input.GetKeyDown(KeyCode.J)) toggleMouseState();
+            if (Input.GetKeyDown(KeyCode.J)) ToggleMouseState();
         }
 
-        private Vector2 getMouseInput()
+        private Vector2 GetMouseInput()
         {
             float getMouseAxis(string axis)
             {
@@ -53,26 +53,26 @@ namespace Game.Core
             return new Vector2(getMouseAxis("Mouse X"), getMouseAxis("Mouse Y"));
         }
 
-        private void toggleMouseState()
+        private void ToggleMouseState()
         {
-            if (currentState == MouseState.NORMAL)
+            if (_currentState == MouseState.Normal)
             {
-                hideAndLockCursor();
-                currentState = MouseState.LOCKED;
+                HideAndLockCursor();
+                _currentState = MouseState.Locked;
             }
             else
             {
-                unlockCursor();
-                currentState = MouseState.NORMAL;
+                UnlockCursor();
+                _currentState = MouseState.Normal;
             }
         }
 
-        private void hideAndLockCursor()
+        private void HideAndLockCursor()
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        private void unlockCursor()
+        private void UnlockCursor()
         {
             Cursor.lockState = CursorLockMode.Confined;
         }

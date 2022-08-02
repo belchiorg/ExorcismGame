@@ -25,10 +25,10 @@ namespace Game.Inventory
         }
         
         #endregion
-
+        
         [SerializeField] private ItemDatabase db;
-
-        public static Item GetItemByID(short id) => 
+        
+        public static Item GetItemByID(short id) =>
             _instance.db.allItems.FirstOrDefault(i => i.Id == id); // Default is null
         
         public static Item GetRandomItem() =>

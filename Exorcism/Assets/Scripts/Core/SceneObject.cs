@@ -33,7 +33,7 @@ namespace Game.Core
         // and on the server from CmdDropItem in the PlayerEquip script.
         public void SetEquippedItem(short newEquippedItemID)
         {
-            if (newEquippedItemID > 0)
+            if (newEquippedItemID >= 0)
             {
                 Item found = DatabaseManager.GetItemByID(newEquippedItemID);
                 
@@ -41,6 +41,10 @@ namespace Game.Core
                     Instantiate(found.Prefab, transform);
                 else
                     Debug.LogError($"Item with id {newEquippedItemID} was not found");
+            }
+            else
+            {
+                Debug.LogError($"Invalid item id {newEquippedItemID}");
             }
         }
     }

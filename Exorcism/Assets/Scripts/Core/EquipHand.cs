@@ -16,16 +16,23 @@ namespace Game.Core
 
         void OnChangeEquipment(short oldEquipmentItemID, short newEquipmentItemID)
         {
-            Debug.Log(oldEquipmentItemID);
             StartCoroutine(ChangeEquipment(newEquipmentItemID));
         }
         
-        IEnumerator ChangeEquipment(short newEquippedItem)
+        IEnumerator ChangeEquipment(short newEquippedItemID)
         {
             while (hand.transform.childCount > 0)
             {
                 Destroy(hand.transform.GetChild(0).gameObject);
                 yield return null;
+            }
+
+            if (newEquippedItemID != Item.NOTHING_ID)
+            {
+                Item item = DatabaseManager.GetItemByID(newEquippedItemID);
+
+                if (item)
+                    Instantiate(item.Prefab, hand.transform);
             }
         }
 
@@ -33,7 +40,7 @@ namespace Game.Core
         {
             if (!isLocalPlayer) return;
             
-            if (Input.GetKeyDown(KeyCode.E) && equippedItemID != Item.NOTHING_ID)
+            if (Input.GetKeyDown(KeyCode.E) && equippedItemID == Item.NOTHING_ID)
                 CmdChangeEquippedItem(DatabaseManager.GetRandomItem().Id);
 
             if (Input.GetKeyDown(KeyCode.G) && equippedItemID != Item.NOTHING_ID)
@@ -56,8 +63,6 @@ namespace Game.Core
 
             // set the RigidBody as non-kinematic on the server only (isKinematic = true in prefab)
             newSceneObject.GetComponent<Rigidbody>().isKinematic = false;
-            
-            
 
             SceneObject sceneObject = newSceneObject.GetComponent<SceneObject>();
 

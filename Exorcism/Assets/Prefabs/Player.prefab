@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2397594521683732517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.292, y: 0.156, z: 0.557}
+  m_LocalPosition: {x: 0.292, y: 0.156, z: 0.699}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -505,6 +505,4 @@ MonoBehaviour:
   sceneObjectPrefab: {fileID: 3208516101697358148, guid: b320a8573f4af8a488959de60c74abd3,
     type: 3}
   hand: {fileID: 2397594521683732517}
-  itemPrefab: {fileID: 6304318950988291472, guid: 98922049e746d574ca170dd1e2c591f8,
-    type: 3}
-  equippedItem: 0
+  equippedItemID: -1

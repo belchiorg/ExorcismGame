@@ -1,64 +1,49 @@
+using System;
 using Mirror;
 using System.Collections;
+using Game.Inventory;
 using UnityEngine;
 
 namespace Game.Core
 {
-    public enum EquippedItem : byte
-    {
-        Nothing,
-        Item
-    }
-    
     public class EquipHand : NetworkBehaviour
     {
         [SerializeField] private GameObject sceneObjectPrefab;
-        
         [SerializeField] private GameObject hand;
-        [SerializeField] private GameObject itemPrefab;
 
         [SyncVar(hook = nameof(OnChangeEquipment))]
-        public EquippedItem equippedItem;
+        public short equippedItemID = Item.NOTHING_ID; // -1 stands for no item 
 
-        void OnChangeEquipment(EquippedItem oldEquipmentItem, EquippedItem newEquipmentItem)
+        void OnChangeEquipment(short oldEquipmentItemID, short newEquipmentItemID)
         {
-            Debug.Log(oldEquipmentItem);
-            StartCoroutine(ChangeEquipment(newEquipmentItem));
+            Debug.Log(oldEquipmentItemID);
+            StartCoroutine(ChangeEquipment(newEquipmentItemID));
         }
         
-        IEnumerator ChangeEquipment(EquippedItem newEquippedItem)
+        IEnumerator ChangeEquipment(short newEquippedItem)
         {
             while (hand.transform.childCount > 0)
             {
                 Destroy(hand.transform.GetChild(0).gameObject);
                 yield return null;
             }
-
-            switch (newEquippedItem)
-            {
-                case EquippedItem.Item:
-                    Instantiate(itemPrefab, hand.transform);
-                    break;
-            }
         }
 
         private void Update()
         {
             if (!isLocalPlayer) return;
+            
+            if (Input.GetKeyDown(KeyCode.E) && equippedItemID != Item.NOTHING_ID)
+                CmdChangeEquippedItem(DatabaseManager.GetRandomItem().Id);
 
-            if (Input.GetKeyDown(KeyCode.N) && equippedItem != EquippedItem.Nothing)
-                CmdChangeEquippedItem(EquippedItem.Nothing);
-            if (Input.GetKeyDown(KeyCode.E) && equippedItem != EquippedItem.Item)
-                CmdChangeEquippedItem(EquippedItem.Item);
-
-            if (Input.GetKeyDown(KeyCode.G) && equippedItem != EquippedItem.Nothing)
+            if (Input.GetKeyDown(KeyCode.G) && equippedItemID != Item.NOTHING_ID)
                 CmdDropItem();
         }
 
         [Command]
-        void CmdChangeEquippedItem(EquippedItem selectedItem)
+        void CmdChangeEquippedItem(short selectedItemId)
         {
-            equippedItem = selectedItem;
+            equippedItemID = selectedItemId;
         }
 
         [Command]
@@ -71,17 +56,19 @@ namespace Game.Core
 
             // set the RigidBody as non-kinematic on the server only (isKinematic = true in prefab)
             newSceneObject.GetComponent<Rigidbody>().isKinematic = false;
+            
+            
 
             SceneObject sceneObject = newSceneObject.GetComponent<SceneObject>();
 
             // set the child object on the server
-            sceneObject.SetEquippedItem(equippedItem);
+            sceneObject.SetEquippedItem(equippedItemID);
 
             // set the SyncVar on the scene object for clients
-            sceneObject.equippedItem = equippedItem;
+            sceneObject.equippedItemID = equippedItemID;
 
             // set the player's SyncVar to nothing so clients will destroy the equipped child item
-            equippedItem = EquippedItem.Nothing;
+            equippedItemID = Item.NOTHING_ID;
 
             // Spawn the scene object on the network for all to see
             NetworkServer.Spawn((GameObject)newSceneObject);

@@ -17,7 +17,7 @@ namespace Game.Core
 
         // Since Destroy is delayed to the end of the current frame, we use a coroutine
         // to clear out any child objects before instantiating the new one
-        IEnumerator ChangeEquipment(short newEquippedItemID)
+        private IEnumerator ChangeEquipment(short newEquippedItemID)
         {
             while (transform.childCount > 0)
             {
@@ -43,9 +43,8 @@ namespace Game.Core
                     Debug.LogError($"Item with id {newEquippedItemID} was not found");
             }
             else
-            {
-                Debug.LogError($"Invalid item id {newEquippedItemID}");
-            }
+                Debug.LogError($"Invalid item id: {newEquippedItemID}");
+            
         }
     }
 }

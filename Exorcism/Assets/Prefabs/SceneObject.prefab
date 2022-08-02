@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  serverOnly: 0
+  serverOnly: 1
   visible: 0
   m_AssetId: b320a8573f4af8a488959de60c74abd3
   hasSpawned: 0
@@ -66,9 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  equippedItem: 0
-  itemPrefab: {fileID: 6304318950988291472, guid: 98922049e746d574ca170dd1e2c591f8,
-    type: 3}
+  equippedItemID: 0
 --- !u!114 &3908451714100380915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1

@@ -76,7 +76,7 @@ namespace Game.Core
             equippedItemID = Item.NOTHING_ID;
 
             // Spawn the scene object on the network for all to see
-            NetworkServer.Spawn((GameObject)newSceneObject);
+            NetworkServer.Spawn(newSceneObject);
         }
     }
 }

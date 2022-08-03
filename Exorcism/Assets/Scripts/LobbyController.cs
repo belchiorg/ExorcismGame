@@ -151,8 +151,8 @@ namespace Game
             {
                 foreach (PlayerListItem playerlistItemToRemove in playerListItemsToRemove)
                 {
-                    GameObject objectToRemove = playerListItemsToRemove.gameObject;
-                    _playerListItems.Remove(objectToRemove);
+                    GameObject objectToRemove = playerlistItemToRemove.gameObject;
+                    _playerListItems.Remove(playerlistItemToRemove);
                     Destroy(objectToRemove);
                     objectToRemove = null;
                 }

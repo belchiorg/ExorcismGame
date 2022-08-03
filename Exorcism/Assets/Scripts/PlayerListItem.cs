@@ -67,6 +67,8 @@ namespace Game
         {
             int imageID = SteamFriends.GetLargeFriendAvatar((CSteamID)playerSteamID);
             if(imageID == -1) { return;}
+
+            playerIcon.texture = GetSteamImageAsTexture(imageID);
         }
         
     }

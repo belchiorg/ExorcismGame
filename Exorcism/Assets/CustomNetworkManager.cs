@@ -5,7 +5,7 @@ using Mirror;
 using Steamworks;
 using UnityEngine.SceneManagement;
 
-namespace Game.Network
+namespace Game
 {
     public class CustomNetworkManager : NetworkManager
     {
@@ -20,7 +20,7 @@ namespace Game.Network
                 gamePlayerInstance.connectionID = conn.connectionId;
                 gamePlayerInstance.playerIdNumber = GamePlayers.Count + 1;
                 //gamePlayerInstance.playerSteamID =
-                  //  (ulong)SteamMatchmaking.GetLobbyMemberByIndex((CSteamID)SteamLobby.instance.currentLobbyID, GamePlayers.Count);
+                //  (ulong)SteamMatchmaking.GetLobbyMemberByIndex((CSteamID)SteamLobby.instance.currentLobbyID, GamePlayers.Count);
 
                 NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
             }

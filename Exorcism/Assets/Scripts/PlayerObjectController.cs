@@ -31,9 +31,45 @@ namespace Game
                 return _manager = CustomNetworkManager.singleton as CustomNetworkManager;
             }
         }
+
+        public override void OnStartAuthority()
+        {
+            CmdSetPlayerName(SteamFriends.GetPersonaName().ToString());
+            gameObject.name = "LocalGamePlayer"; //verificar se é o mm do outro script
+            LobbyController.instance.FindLocalPlayer();
+            LobbyController.instance.UpdateLobbyName();
+        }
+
+        public override void OnStartClient()
+        {
+            Manager.GamePlayers.Add(this);
+            LobbyController.instance.UpdateLobbyName();
+            LobbyController.instance.UpdatePlayerList();
+        }
+
+        public override void OnStopClient()
+        {
+            Manager.GamePlayers.Remove(this);
+            LobbyController.instance.UpdatePlayerList();
+        }
+
+        [Command]
+        private void CmdSetPlayerName(string playeName)
+        {
+            this.PlayerNameUpdate(this.playerName, playeName);
+        }
+        
         public void PlayerNameUpdate(string oldValue, string newValue)
         {
-            
+            if (isServer)
+            {
+                this.playerName = newValue;
+            }
+
+            if (isClient)
+            {
+                LobbyController.instance.UpdatePlayerList();
+            }
         }
     }
     

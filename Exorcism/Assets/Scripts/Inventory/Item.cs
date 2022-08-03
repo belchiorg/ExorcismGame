@@ -22,5 +22,7 @@ namespace Game.Inventory
         public string Name => name;
 
         public static short NOTHING_ID = -1; // represents an empty slot
+
+        //uuu qualquer coisa
     }
 }

@@ -8,7 +8,7 @@ using System.Linq;
 using Game.Network;
 using Unity.Services.Lobbies.Models;
 
-namespace Game.Steamworks
+namespace Game.Network.Steamworks
 {
     public class LobbyController : NetworkBehaviour
     {
@@ -56,7 +56,7 @@ namespace Game.Steamworks
 
         public void UpdateLobbyName()
         {
-            currentLobbyID = steamLobby.CurrentLobbyID;
+            currentLobbyID = steamLobby.currentLobbyID;
             lobbyNameText.text = SteamMatchmaking.GetLobbyData(new CSteamID(currentLobbyID), "name");
         }
 

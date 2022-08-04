@@ -4,7 +4,7 @@ using Mirror;
 using Steamworks;
 using UnityEngine.UI;
 
-namespace Game.Steamworks
+namespace Game.Network.Steamworks
 {
 
     public class SteamLobby : MonoBehaviour

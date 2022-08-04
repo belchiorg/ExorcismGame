@@ -16,7 +16,7 @@ using Steamworks;
 #endif
 
 
-namespace Game.Steamworks
+namespace Game.Network.Steamworks
 {
 //
 // The SteamManager provides a base implementation of Steamworks.NET on which you can build upon.

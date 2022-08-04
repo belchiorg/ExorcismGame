@@ -4,8 +4,9 @@ using Game.Network;
 using UnityEngine;
 using Mirror;
 using Steamworks;
+using Game.Network.Steamworks;
 
-namespace Game
+namespace Game.Network
 {
     public class PlayerObjectController : NetworkBehaviour
     {
@@ -23,7 +24,7 @@ namespace Game
         {
             get
             {
-                if (_manager != null)
+                if (_manager)
                 {
                     return _manager;
                 }

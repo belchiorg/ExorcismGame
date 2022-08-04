@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Steamworks;
 
-namespace Game
+namespace Game.Network
 {
     public class PlayerListItem : MonoBehaviour
     {
@@ -14,8 +14,8 @@ namespace Game
         public ulong playerSteamID;
         private bool _avatarReceived;
 
-        public Text playerNameText;
-        public RawImage playerIcon;
+        public Text PlayerNameText;
+        public RawImage PlayerIcon;
         
         protected Callback<AvatarImageLoaded_t> imageLoaded;
 
@@ -28,7 +28,7 @@ namespace Game
         {
             if (callback.m_steamID.m_SteamID == playerSteamID)
             {
-                playerIcon.texture = GetSteamImageAsTexture(callback.m_iImage);
+                PlayerIcon.texture = GetSteamImageAsTexture(callback.m_iImage);
             }
             else
             {
@@ -60,7 +60,7 @@ namespace Game
 
         public void SetPlayerValues()
         {
-            playerNameText.text = playerName;
+            PlayerNameText.text = playerName;
             if(!_avatarReceived) { GetPlayerIcon();}
         }
         private void GetPlayerIcon()
@@ -68,7 +68,7 @@ namespace Game
             int imageID = SteamFriends.GetLargeFriendAvatar((CSteamID)playerSteamID);
             if(imageID == -1) { return;}
 
-            playerIcon.texture = GetSteamImageAsTexture(imageID);
+            PlayerIcon.texture = GetSteamImageAsTexture(imageID);
         }
         
     }

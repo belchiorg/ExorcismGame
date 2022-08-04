@@ -21,10 +21,7 @@ namespace Game.Network.Steamworks
         public ulong currentLobbyID;
         private const string HostAddressKey = "HostAddress";
         private CustomNetworkManager _manager;
-
-        //GameObject
-        public GameObject hostButton;
-        public Text lobbyNameText;
+        
 
         private void Start()
         {
@@ -78,11 +75,8 @@ namespace Game.Network.Steamworks
         private void OnLobbyEntered(LobbyEnter_t callback)
         {
             //Everyone
-            hostButton.SetActive(false);
             currentLobbyID = callback.m_ulSteamIDLobby;
-            lobbyNameText.gameObject.SetActive(true);
-            lobbyNameText.text = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "name");
-        
+
             //Clients
             if (NetworkServer.active)
             {

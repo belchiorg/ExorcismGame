@@ -19,8 +19,8 @@ namespace Game.Network
                 PlayerObjectController gamePlayerInstance = Instantiate(GamePlayerPrefab);
                 gamePlayerInstance.connectionID = conn.connectionId;
                 gamePlayerInstance.playerIdNumber = GamePlayers.Count + 1;
-                //gamePlayerInstance.playerSteamID =
-                  //  (ulong)SteamMatchmaking.GetLobbyMemberByIndex((CSteamID)SteamLobby.instance.currentLobbyID, GamePlayers.Count);
+                gamePlayerInstance.playerSteamID =
+                  (ulong)SteamMatchmaking.GetLobbyMemberByIndex((CSteamID)SteamLobby.instance.currentLobbyID, GamePlayers.Count);
 
                 NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
             }

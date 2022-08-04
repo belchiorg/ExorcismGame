@@ -6,13 +6,13 @@ using Steamworks;
 using UnityEngine.UI;
 using System.Linq;
 using Game.Network;
-using Game.Steamworks;
 using Unity.Services.Lobbies.Models;
 
-namespace Game
+namespace Game.Steamworks
 {
-    public class LobbyController : MonoBehaviour
+    public class LobbyController : NetworkBehaviour
     {
+        public SteamLobby steamLobby;
         public static LobbyController instance;
         
         //UI elements
@@ -50,12 +50,13 @@ namespace Game
             if (instance == null)
             {
                 instance = this;
+                steamLobby = Manager.GetComponent<SteamLobby>();
             }
         }
 
         public void UpdateLobbyName()
         {
-            currentLobbyID = Manager.GetComponent<SteamLobby>().CurrentLobbyID;
+            currentLobbyID = steamLobby.CurrentLobbyID;
             lobbyNameText.text = SteamMatchmaking.GetLobbyData(new CSteamID(currentLobbyID), "name");
         }
 
@@ -97,6 +98,8 @@ namespace Game
 
             playerItemCreated = true;
         }
+        
+        
         
         public void CreateClientPlayerItem()
         {
